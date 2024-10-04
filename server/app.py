@@ -20,7 +20,16 @@ def index():
 
 @app.route('/bakeries')
 def bakeries():
-    return ''
+    bakeries=[]
+    for b in Bakery.query.all():
+        b_dict = b.to_dict()
+        bakeries.append(b_dict)
+    response = make_response(bakeries,
+                            200,
+                            {'Content-Type': 'application/json'}
+                        )
+    return response
+
 
 @app.route('/bakeries/<int:id>')
 def bakery_by_id(id):
